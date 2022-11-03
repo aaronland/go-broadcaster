@@ -11,7 +11,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/base64"
-	"errors"
 	"fmt"
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/aaronland/go-broadcaster/oauth"
@@ -21,6 +20,7 @@ import (
 	"log"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 func init() {
@@ -48,13 +48,16 @@ func NewTwitterBroadcaster(ctx context.Context, uri string) (Broadcaster, error)
 	creds_uri := query.Get("credentials")
 
 	if creds_uri == "" {
-		return nil, errors.New("Missing config")
+		return nil, fmt.Errorf("Missing ?credentials= parameter")
 	}
 
-	str_creds, err := runtimevar.StringVar(ctx, creds_uri)
+	rt_ctx, rt_cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer rt_cancel()
+
+	str_creds, err := runtimevar.StringVar(rt_ctx, creds_uri)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to config from credentials, %w", err)
 	}
 
 	creds, err := oauth.NewOAuth1CredentialsFromString(ctx, str_creds)

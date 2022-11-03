@@ -7,6 +7,7 @@ require (
 	github.com/aaronland/go-image-encode v0.0.0-20200215191655-047f61aedbfe
 	github.com/aaronland/go-mastodon-api v1.0.0
 	github.com/aaronland/go-roster v1.0.0
+	github.com/hashicorp/go-multierror v1.1.1
 	github.com/sfomuseum/go-flags v0.10.0
 	github.com/sfomuseum/runtimevar v1.0.2
 )
@@ -37,6 +38,7 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/wire v0.5.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/tidwall/gjson v1.14.3 // indirect
 	github.com/tidwall/match v1.1.1 // indirect

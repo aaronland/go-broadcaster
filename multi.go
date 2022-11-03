@@ -3,8 +3,8 @@ package broadcaster
 import (
 	"context"
 	"fmt"
+	"github.com/hashicorp/go-multierror"
 	"log"
-	"sync"
 )
 
 type MultiBroadcaster struct {
@@ -54,20 +54,19 @@ func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) e
 
 	th := b.newThrottle()
 
-	wg := new(sync.WaitGroup)
+	done_ch := make(chan bool)
+	err_ch := make(chan error)
 
 	for _, bc := range b.broadcasters {
-
-		<-th
-
-		wg.Add(1)
 
 		go func(bc Broadcaster, msg *Message) {
 
 			defer func() {
+				done_ch <- true
 				th <- true
-				wg.Done()
 			}()
+
+			<-th
 
 			select {
 			case <-ctx.Done():
@@ -79,13 +78,30 @@ func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) e
 			err := bc.BroadcastMessage(ctx, msg)
 
 			if err != nil {
-				b.logger.Printf("[%T] Failed to broadcast message: %s\n", bc, err)
+				err_ch <- fmt.Errorf("[%T] Failed to broadcast message: %s\n", bc, err)
 			}
 
 		}(bc, msg)
 	}
 
-	wg.Wait()
+	remaining := len(b.broadcasters)
+	var result error
+
+	for remaining > 0 {
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-done_ch:
+			remaining -= 1
+		case err := <-err_ch:
+			result = multierror.Append(result, err)
+		}
+	}
+
+	if result != nil {
+		return fmt.Errorf("One or more errors occurred, %w", result)
+	}
+
 	return nil
 }
 
@@ -98,31 +114,54 @@ func (b *MultiBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) er
 
 	th := b.newThrottle()
 
-	wg := new(sync.WaitGroup)
+	done_ch := make(chan bool)
+	err_ch := make(chan error)
 
 	for _, bc := range b.broadcasters {
-
-		<-th
-
-		wg.Add(1)
 
 		go func(bc Broadcaster, logger *log.Logger) {
 
 			defer func() {
+				done_ch <- true
 				th <- true
-				wg.Done()
 			}()
+
+			<-th
+
+			select {
+			case <-ctx.Done():
+				return
+			default:
+				// pass
+			}
 
 			err := bc.SetLogger(ctx, logger)
 
 			if err != nil {
-				b.logger.Printf("[%T] Failed to set logger: %v", bc, err)
+				err_ch <- fmt.Errorf("[%T] Failed to set logger: %v", bc, err)
 			}
 
 		}(bc, logger)
 	}
 
-	wg.Wait()
+	remaining := len(b.broadcasters)
+	var result error
+
+	for remaining > 0 {
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-done_ch:
+			remaining -= 1
+		case err := <-err_ch:
+			result = multierror.Append(result, err)
+		}
+	}
+
+	if result != nil {
+		return fmt.Errorf("One or more errors occurred, %w", result)
+	}
+
 	return nil
 }
 
