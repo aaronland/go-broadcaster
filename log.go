@@ -3,7 +3,6 @@ package broadcaster
 import (
 	"context"
 	"log"
-	"fmt"
 )
 
 func init() {

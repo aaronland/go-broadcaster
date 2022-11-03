@@ -121,7 +121,7 @@ func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message)
 		return err
 	}
 
-	b.logger.Printf("twitter post %d (media id: %d) ", tw.Id, params.Get("media_id"))
+	b.logger.Printf("twitter post %d (media id: %s) ", tw.Id, params.Get("media_id"))
 	return nil
 }
 

@@ -14,6 +14,6 @@ func main() {
 	err := broadcast.Run(ctx, logger)
 
 	if err != nil {
-		logger.Fatal("Failed to run broadcast application, %v", err)
+		logger.Fatalf("Failed to run broadcast application, %v", err)
 	}
 }
