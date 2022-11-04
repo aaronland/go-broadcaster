@@ -31,11 +31,12 @@ func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet, logger *log.Logger) e
 		Body:  body,
 	}
 
-	err = br.BroadcastMessage(ctx, msg)
+	id, err := br.BroadcastMessage(ctx, msg)
 
 	if err != nil {
 		return fmt.Errorf("Failed to broadcast message, %w", err)
 	}
 
+	fmt.Println(id)
 	return nil
 }

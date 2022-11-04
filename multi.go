@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/hashicorp/go-multierror"
 	"log"
+	"strings"
 )
 
 type MultiBroadcaster struct {
@@ -47,7 +48,7 @@ func NewMultiBroadcaster(ctx context.Context, broadcasters ...Broadcaster) (Broa
 	return &b, nil
 }
 
-func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) error {
+func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
 
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -56,7 +57,8 @@ func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) e
 
 	done_ch := make(chan bool)
 	err_ch := make(chan error)
-
+	id_ch := make(chan string)
+	
 	for _, bc := range b.broadcasters {
 
 		go func(bc Broadcaster, msg *Message) {
@@ -75,34 +77,40 @@ func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) e
 				// pass
 			}
 
-			err := bc.BroadcastMessage(ctx, msg)
+			id, err := bc.BroadcastMessage(ctx, msg)
 
 			if err != nil {
 				err_ch <- fmt.Errorf("[%T] Failed to broadcast message: %s\n", bc, err)
 			}
 
+			id_ch <- fmt.Sprintf("%T#%s", bc, id)
+			
 		}(bc, msg)
 	}
 
 	remaining := len(b.broadcasters)
 	var result error
 
+	ids := make([]string, len(b.broadcasters))
+	
 	for remaining > 0 {
 		select {
 		case <-ctx.Done():
-			return nil
+			return "", nil
 		case <-done_ch:
 			remaining -= 1
 		case err := <-err_ch:
 			result = multierror.Append(result, err)
+		case id := <- id_ch:
+			ids = append(ids, id)
 		}
 	}
 
 	if result != nil {
-		return fmt.Errorf("One or more errors occurred, %w", result)
+		return "", fmt.Errorf("One or more errors occurred, %w", result)
 	}
 
-	return nil
+	return strings.Join(ids, " "), nil
 }
 
 func (b *MultiBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {

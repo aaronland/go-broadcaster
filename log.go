@@ -3,6 +3,8 @@ package broadcaster
 import (
 	"context"
 	"log"
+	"time"
+	"strconv"
 )
 
 func init() {
@@ -23,9 +25,12 @@ func NewLogBroadcaster(ctx context.Context, uri string) (Broadcaster, error) {
 	return &b, nil
 }
 
-func (b *LogBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) error {
+func (b *LogBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
 	b.logger.Println(msg.Body)
-	return nil
+	now := time.Now()
+	ts := now.Unix()
+	id := strconv.FormatInt(ts, 10)
+	return id, nil
 }
 
 func (b *LogBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {

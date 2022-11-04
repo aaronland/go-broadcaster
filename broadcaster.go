@@ -11,7 +11,7 @@ import (
 )
 
 type Broadcaster interface {
-	BroadcastMessage(context.Context, *Message) error
+	BroadcastMessage(context.Context, *Message) (string, error)
 	SetLogger(context.Context, *log.Logger) error
 }
 

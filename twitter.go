@@ -92,7 +92,7 @@ func NewTwitterBroadcaster(ctx context.Context, uri string) (Broadcaster, error)
 	return br, nil
 }
 
-func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) error {
+func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
 
 	params := url.Values{}
 
@@ -101,7 +101,7 @@ func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message)
 		media_id, err := b.uploadImage(msg.Image)
 
 		if err != nil {
-			return err
+			return "", err
 		}
 
 		str_media_id := strconv.FormatInt(media_id, 10)
@@ -118,11 +118,13 @@ func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message)
 	tw, err := b.twitter_client.PostTweet(status, params)
 
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	b.logger.Printf("twitter post %d (media id: %s) ", tw.Id, params.Get("media_id"))
-	return nil
+	
+	str_id := strconv.FormatInt(tw.Id, 10)
+	return str_id, nil
 }
 
 func (b *TwitterBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {
