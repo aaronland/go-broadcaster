@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/aaronland/go-roster"
+	"github.com/aaronland/go-uid"
 	"log"
 	"net/url"
 	"sort"
@@ -11,7 +12,7 @@ import (
 )
 
 type Broadcaster interface {
-	BroadcastMessage(context.Context, *Message) (string, error)
+	BroadcastMessage(context.Context, *Message) (uid.UID, error)
 	SetLogger(context.Context, *log.Logger) error
 }
 

@@ -1,5 +1,5 @@
 package broadcaster
 
-type Reponse interface {
+type Response interface {
 	Id() string
 }

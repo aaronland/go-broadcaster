@@ -37,6 +37,6 @@ func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet, logger *log.Logger) e
 		return fmt.Errorf("Failed to broadcast message, %w", err)
 	}
 
-	fmt.Println(id)
+	fmt.Println(id.String())
 	return nil
 }

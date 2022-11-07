@@ -7,6 +7,7 @@ require (
 	github.com/aaronland/go-image-encode v0.0.0-20200215191655-047f61aedbfe
 	github.com/aaronland/go-mastodon-api v1.0.0
 	github.com/aaronland/go-roster v1.0.0
+	github.com/aaronland/go-uid v0.3.0
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/sfomuseum/go-flags v0.10.0
 	github.com/sfomuseum/runtimevar v1.0.2
@@ -15,7 +16,7 @@ require (
 require (
 	github.com/ChimeraCoder/tokenbucket v0.0.0-20131201223612-c5a927568de7 // indirect
 	github.com/aaronland/go-aws-session v0.0.6 // indirect
-	github.com/aaronland/go-string v0.1.2 // indirect
+	github.com/aaronland/go-string v1.0.0 // indirect
 	github.com/aws/aws-sdk-go v1.44.68 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.16.8 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.15.15 // indirect

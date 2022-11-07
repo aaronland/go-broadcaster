@@ -2,6 +2,7 @@ package broadcaster
 
 import (
 	"context"
+	"github.com/aaronland/go-uid"
 	"log"
 )
 
@@ -20,8 +21,8 @@ func NewNullBroadcaster(ctx context.Context, uri string) (Broadcaster, error) {
 	return &b, nil
 }
 
-func (b *NullBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
-	return "null", nil
+func (b *NullBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (uid.UID, error) {
+	return uid.NewNullUID(ctx)
 }
 
 func (b *NullBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {

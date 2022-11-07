@@ -7,6 +7,7 @@ import (
 	"github.com/aaronland/go-image-encode"
 	"github.com/aaronland/go-mastodon-api/client"
 	"github.com/aaronland/go-mastodon-api/response"
+	"github.com/aaronland/go-uid"
 	"github.com/sfomuseum/runtimevar"
 	_ "image"
 	"log"
@@ -108,7 +109,7 @@ func NewMastodonBroadcaster(ctx context.Context, uri string) (Broadcaster, error
 	return br, nil
 }
 
-func (b *MastodonBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
+func (b *MastodonBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (uid.UID, error) {
 
 	status := msg.Body
 
@@ -130,7 +131,7 @@ func (b *MastodonBroadcaster) BroadcastMessage(ctx context.Context, msg *Message
 		err := b.encoder.Encode(ctx, msg.Image, r)
 
 		if err != nil {
-			return "", fmt.Errorf("Failed to encode image, %w", err)
+			return nil, fmt.Errorf("Failed to encode image, %w", err)
 		}
 
 		if b.dryrun {
@@ -140,13 +141,13 @@ func (b *MastodonBroadcaster) BroadcastMessage(ctx context.Context, msg *Message
 			rsp, err := b.mastodon_client.UploadMedia(ctx, r, nil)
 
 			if err != nil {
-				return "", fmt.Errorf("Failed to upload image, %w", err)
+				return nil, fmt.Errorf("Failed to upload image, %w", err)
 			}
 
 			media_id, err := response.Id(ctx, rsp)
 
 			if err != nil {
-				return "", fmt.Errorf("Failed to derive media ID from response, %w", err)
+				return nil, fmt.Errorf("Failed to derive media ID from response, %w", err)
 			}
 
 			args.Set("media_ids[]", media_id)
@@ -154,25 +155,31 @@ func (b *MastodonBroadcaster) BroadcastMessage(ctx context.Context, msg *Message
 
 	}
 
+	var status_id string
+
 	if b.dryrun {
 		b.logger.Println(args)
-		return "1", nil
-	}
+		status_id = "1"
+	} else {
 
-	rsp, err := b.mastodon_client.ExecuteMethod(ctx, "POST", "/api/v1/statuses", args)
+		rsp, err := b.mastodon_client.ExecuteMethod(ctx, "POST", "/api/v1/statuses", args)
 
-	if err != nil {
-		return "", fmt.Errorf("Failed to post message, %w", err)
-	}
+		if err != nil {
+			return nil, fmt.Errorf("Failed to post message, %w", err)
+		}
 
-	status_id, err := response.Id(ctx, rsp)
+		id, err := response.Id(ctx, rsp)
 
-	if err != nil {
-		return "", fmt.Errorf("Failed to derive status ID from response, %w", err)
+		if err != nil {
+			return nil, fmt.Errorf("Failed to derive status ID from response, %w", err)
+		}
+
+		status_id = id
 	}
 
 	b.logger.Printf("mastodon post %s", status_id)
-	return status_id, nil
+
+	return uid.NewStringUID(ctx, status_id)
 }
 
 func (b *MastodonBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {

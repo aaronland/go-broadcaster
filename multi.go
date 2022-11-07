@@ -3,6 +3,7 @@ package broadcaster
 import (
 	"context"
 	"fmt"
+	"github.com/aaronland/go-uid"
 	"github.com/hashicorp/go-multierror"
 	"log"
 	"strings"
@@ -13,6 +14,35 @@ type MultiBroadcaster struct {
 	broadcasters []Broadcaster
 	logger       *log.Logger
 	async        bool
+}
+
+type MultiUID struct {
+	uid.UID
+	uids []uid.UID
+}
+
+func NewMultiUID(ctx context.Context, uids ...uid.UID) uid.UID {
+
+	r := &MultiUID{
+		uids: uids,
+	}
+
+	return r
+}
+
+func (r *MultiUID) Value() any {
+	return r.uids
+}
+
+func (r *MultiUID) String() string {
+
+	pairs := make([]string, len(r.uids))
+
+	for idx, uid := range r.uids {
+		pairs[idx] = fmt.Sprintf("%T#%s", uid, uid.String())
+	}
+
+	return strings.Join(pairs, " ")
 }
 
 func NewMultiBroadcasterFromURIs(ctx context.Context, broadcaster_uris ...string) (Broadcaster, error) {
@@ -48,7 +78,7 @@ func NewMultiBroadcaster(ctx context.Context, broadcasters ...Broadcaster) (Broa
 	return &b, nil
 }
 
-func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
+func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (uid.UID, error) {
 
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -57,8 +87,8 @@ func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (
 
 	done_ch := make(chan bool)
 	err_ch := make(chan error)
-	id_ch := make(chan string)
-	
+	id_ch := make(chan uid.UID)
+
 	for _, bc := range b.broadcasters {
 
 		go func(bc Broadcaster, msg *Message) {
@@ -83,34 +113,34 @@ func (b *MultiBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (
 				err_ch <- fmt.Errorf("[%T] Failed to broadcast message: %s\n", bc, err)
 			}
 
-			id_ch <- fmt.Sprintf("%T#%s", bc, id)
-			
+			id_ch <- id
+
 		}(bc, msg)
 	}
 
 	remaining := len(b.broadcasters)
 	var result error
 
-	ids := make([]string, len(b.broadcasters))
-	
+	ids := make([]uid.UID, 0)
+
 	for remaining > 0 {
 		select {
 		case <-ctx.Done():
-			return "", nil
+			return uid.NewNullUID(ctx)
 		case <-done_ch:
 			remaining -= 1
 		case err := <-err_ch:
 			result = multierror.Append(result, err)
-		case id := <- id_ch:
+		case id := <-id_ch:
 			ids = append(ids, id)
 		}
 	}
 
 	if result != nil {
-		return "", fmt.Errorf("One or more errors occurred, %w", result)
+		return nil, fmt.Errorf("One or more errors occurred, %w", result)
 	}
 
-	return strings.Join(ids, " "), nil
+	return NewMultiUID(ctx, ids...), nil
 }
 
 func (b *MultiBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {

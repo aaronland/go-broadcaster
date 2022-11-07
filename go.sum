@@ -203,8 +203,11 @@ github.com/aaronland/go-mastodon-api v1.0.0/go.mod h1:cj1+3xPtWH73KqnBidELsTp93K
 github.com/aaronland/go-roster v0.0.1/go.mod h1:AcovpxlG1XxJxX2Fjqlm63fEIBhCjEIBV4lP87FZDmI=
 github.com/aaronland/go-roster v1.0.0 h1:FRDGrTqsYySKjWnAhbBGXyeGlI/o5/t9FZYCbUmyQtI=
 github.com/aaronland/go-roster v1.0.0/go.mod h1:KIsYZgrJlAsyb9LsXSCvlqvbcCBVjCSqcQiZx42i9ro=
-github.com/aaronland/go-string v0.1.2 h1:RSr/mQNbLgF37H0RV+nF7j2kILRRFkCmr8Jwq4lw92k=
 github.com/aaronland/go-string v0.1.2/go.mod h1:2aMIWdTqk63jZsaLLy+p9dsB1MDRqx4sHYoLtkwyYUo=
+github.com/aaronland/go-string v1.0.0 h1:fPHmC1i9JhGzgi4qdCSXKc4xTCaLLe0uvlJMu9dHhco=
+github.com/aaronland/go-string v1.0.0/go.mod h1:URh3Au/fNbM0++WjBseurE3QTp875wiJ9ImrecD+7tI=
+github.com/aaronland/go-uid v0.3.0 h1:RI/MyMobd21V9bRQ0iDbVf1lu7vtESwVhfVqipY1jfs=
+github.com/aaronland/go-uid v0.3.0/go.mod h1:HwQ09mooJ8j684z3W5lPKO6Odf557O6h3P3o1PquqXE=
 github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5/go.mod h1:SkGFH1ia65gfNATL8TAiHDNxPzPdmEL5uirI2Uyuz6c=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=

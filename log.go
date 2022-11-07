@@ -2,9 +2,10 @@ package broadcaster
 
 import (
 	"context"
+	"github.com/aaronland/go-uid"
 	"log"
-	"time"
 	"strconv"
+	"time"
 )
 
 func init() {
@@ -25,12 +26,16 @@ func NewLogBroadcaster(ctx context.Context, uri string) (Broadcaster, error) {
 	return &b, nil
 }
 
-func (b *LogBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
+func (b *LogBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (uid.UID, error) {
 	b.logger.Println(msg.Body)
+
 	now := time.Now()
 	ts := now.Unix()
-	id := strconv.FormatInt(ts, 10)
-	return id, nil
+
+	// pending uid.NewInt64UID
+	str_ts := strconv.FormatInt(ts, 10)
+
+	return uid.NewStringUID(ctx, str_ts)
 }
 
 func (b *LogBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {

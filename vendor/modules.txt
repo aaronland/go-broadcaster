@@ -17,9 +17,13 @@ github.com/aaronland/go-mastodon-api/response
 # github.com/aaronland/go-roster v1.0.0
 ## explicit; go 1.16
 github.com/aaronland/go-roster
-# github.com/aaronland/go-string v0.1.2
-## explicit; go 1.12
+# github.com/aaronland/go-string v1.0.0
+## explicit; go 1.16
 github.com/aaronland/go-string/dsn
+github.com/aaronland/go-string/random
+# github.com/aaronland/go-uid v0.3.0
+## explicit; go 1.18
+github.com/aaronland/go-uid
 # github.com/aws/aws-sdk-go v1.44.68
 ## explicit; go 1.11
 github.com/aws/aws-sdk-go/aws

@@ -15,6 +15,7 @@ import (
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/aaronland/go-broadcaster/oauth"
 	"github.com/aaronland/go-image-encode"
+	"github.com/aaronland/go-uid"
 	"github.com/sfomuseum/runtimevar"
 	"image"
 	"log"
@@ -92,7 +93,7 @@ func NewTwitterBroadcaster(ctx context.Context, uri string) (Broadcaster, error)
 	return br, nil
 }
 
-func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (string, error) {
+func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (uid.UID, error) {
 
 	params := url.Values{}
 
@@ -101,7 +102,7 @@ func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message)
 		media_id, err := b.uploadImage(msg.Image)
 
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
 		str_media_id := strconv.FormatInt(media_id, 10)
@@ -118,13 +119,15 @@ func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message)
 	tw, err := b.twitter_client.PostTweet(status, params)
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	b.logger.Printf("twitter post %d (media id: %s) ", tw.Id, params.Get("media_id"))
-	
+
+	// pending uid.NewInt64UID
 	str_id := strconv.FormatInt(tw.Id, 10)
-	return str_id, nil
+
+	return uid.NewStringUID(ctx, str_id)
 }
 
 func (b *TwitterBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {
