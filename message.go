@@ -5,7 +5,7 @@ import (
 )
 
 type Message struct {
-	Title string
-	Body  string
-	Image image.Image
+	Title  string
+	Body   string
+	Images []image.Image
 }

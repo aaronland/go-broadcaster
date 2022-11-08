@@ -5,7 +5,6 @@ go 1.19
 require (
 	github.com/ChimeraCoder/anaconda v2.0.0+incompatible
 	github.com/aaronland/go-image-encode v0.0.0-20200215191655-047f61aedbfe
-	github.com/aaronland/go-mastodon-api v1.0.0
 	github.com/aaronland/go-roster v1.0.0
 	github.com/aaronland/go-uid v0.4.0
 	github.com/hashicorp/go-multierror v1.1.1
@@ -41,10 +40,6 @@ require (
 	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/tidwall/gjson v1.14.3 // indirect
-	github.com/tidwall/match v1.1.1 // indirect
-	github.com/tidwall/pretty v1.2.0 // indirect
-	github.com/whosonfirst/go-ioutil v1.0.2 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	gocloud.dev v0.27.0 // indirect
 	golang.org/x/net v0.0.0-20220802222814-0bcc04d9c69b // indirect

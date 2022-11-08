@@ -97,17 +97,20 @@ func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message)
 
 	params := url.Values{}
 
-	if msg.Image != nil {
+	if len(msg.Images) > 0 {
 
-		media_id, err := b.uploadImage(msg.Image)
+		for _, im := range msg.Images {
 
-		if err != nil {
-			return nil, err
+			media_id, err := b.uploadImage(im)
+
+			if err != nil {
+				return nil, err
+			}
+
+			str_media_id := strconv.FormatInt(media_id, 10)
+
+			params.Add("media_ids", str_media_id)
 		}
-
-		str_media_id := strconv.FormatInt(media_id, 10)
-
-		params.Set("media_ids", str_media_id)
 	}
 
 	status := msg.Body
