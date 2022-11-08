@@ -124,10 +124,7 @@ func (b *TwitterBroadcaster) BroadcastMessage(ctx context.Context, msg *Message)
 
 	b.logger.Printf("twitter post %d (media id: %s) ", tw.Id, params.Get("media_id"))
 
-	// pending uid.NewInt64UID
-	str_id := strconv.FormatInt(tw.Id, 10)
-
-	return uid.NewStringUID(ctx, str_id)
+	return uid.NewInt64UID(ctx, tw.Id)
 }
 
 func (b *TwitterBroadcaster) SetLogger(ctx context.Context, logger *log.Logger) error {
