@@ -56,7 +56,7 @@ func main() {
 
 _Error handling omitted for the sake of brevity._
 
-### Implementing the `Broadcaster` interfaces.
+### Implementing the `Broadcaster` interface.
 
 ```
 package broadcaster
