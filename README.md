@@ -16,7 +16,7 @@ That's all it does and doesn't try to account for any other, or more complicated
 
 ## This should still be considered "in flux"
 
-Although the "skeleton" of this package and its interfaces is complete some details may still change.
+Although the "skeleton" of this package and its interfaces is complete some details may still change. For example, it is expected that the `Broadcaster` interface will be updated to include a `Close` method shortly.
 
 ## Example
 
@@ -150,6 +150,10 @@ NullUID# Int64UID#1667925887
 ```
 
 ## Other implementations
+
+### flickr://
+
+* https://github.com/aaronland/go-broadcaster-flickr
 
 ### mastodon://
 
