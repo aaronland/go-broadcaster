@@ -6,8 +6,6 @@ Minimalist and opinionated package providing interfaces for "broadcasting" messa
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/aaronland/go-broadcaster.svg)](https://pkg.go.dev/github.com/aaronland/go-broadcaster)
 
-Documentation is incomplete.
-
 ## Motivation
 
 This package provides minimalist and opionated interfaces for "broadcasting" simple messages with zero or more images.
@@ -124,21 +122,40 @@ This package uses the [aaronland/go-uid](https://github.com/aaronland/go-uid) pa
 
 ## Tools
 
+```
+$> make cli
+go build -mod vendor -o bin/broadcast cmd/broadcast/main.go
+```
+
 ### broadcast
 
 ```
-$> go run cmd/broadcast/main.go -broadcaster log:// -broadcaster null:// -body "hello world"
+$> ./bin/broadcast -h
+  -body string
+    	The body of the message to broadcast.
+  -broadcaster value
+    	One or more aaronland/go-broadcast URIs.
+  -image value
+    	Zero or more paths to images to include with the message to broadcast.
+  -title string
+    	The title of the message to broadcast.
+```
+
+For example:
+
+```
+$> ./bin/broadcast -broadcaster log:// -broadcaster null:// -body "hello world"
 2022/11/08 08:44:47  hello world
 NullUID# Int64UID#1667925887
 ```
 
-## Implementations
+## Other implementations
 
-### Mastodon
+### mastodon://
 
 * https://github.com/aaronland/go-broadcaster-mastodon
 
-### Twitter
+### twitter://
 
 * https://github.com/aaronland/go-broadcaster-twitter
 

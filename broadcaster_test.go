@@ -1,13 +1,17 @@
 package broadcaster
 
 import (
+	"context"
 	"testing"
 )
 
-func TestBroadcaster(t *testing.T) {
-	t.Skip()
-}
+func TestRegisterBroadcaster(t *testing.T) {
 
-func TestMessage(t *testing.T) {
-	t.Skip()
+	ctx := context.Background()
+
+	err := RegisterBroadcaster(ctx, "null", NewNullBroadcaster)
+
+	if err == nil {
+		t.Fatalf("Expected error registering null:// scheme")
+	}
 }

@@ -27,9 +27,9 @@ type LogBroadcaster struct {
 // By default `LogBroadcaster` instances are configured to broadcast messages to a `log.Default`
 // instance. If you want to change that call the `SetLogger` method.
 func NewLogBroadcaster(ctx context.Context, uri string) (Broadcaster, error) {
-	
+
 	logger := log.Default()
-	
+
 	b := LogBroadcaster{
 		logger: logger,
 	}
@@ -41,7 +41,7 @@ func NewLogBroadcaster(ctx context.Context, uri string) (Broadcaster, error) {
 // to their ascii interpretations but today it does not. It returns the value of the Unix timestamp
 // that the log message was broadcast.
 func (b *LogBroadcaster) BroadcastMessage(ctx context.Context, msg *Message) (uid.UID, error) {
-	
+
 	b.logger.Printf("%s %s\n", msg.Title, msg.Body)
 
 	now := time.Now()

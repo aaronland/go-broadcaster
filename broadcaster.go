@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/aaronland/go-roster"
 	"github.com/aaronland/go-uid"
-	"log"
 	"image"
+	"log"
 	"net/url"
 	"sort"
 	"strings"
@@ -25,9 +25,9 @@ type Broadcaster interface {
 // interface.
 type Message struct {
 	// Title is a string to use as the title of a "broadcast" message.
-	Title  string
+	Title string
 	// Body is a string to use as the body of a "broadcast" message.
-	Body   string
+	Body string
 	// Images is zero or more `image.Image` instances to be included with a "broadcast" messages.
 	// Images are encoded according to rules implemented by service or target -specific implementation
 	// of the `Broadcaster` interface.
