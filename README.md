@@ -8,7 +8,7 @@ Minimalist and opinionated package providing interfaces for "broadcasting" messa
 
 ## Motivation
 
-This package provides minimalist and opionated interfaces for "broadcasting" simple messages with zero or more images.
+This package provides minimalist and opinionated interfaces for "broadcasting" simple messages with zero or more images.
 
 A message consists of an optional title and body as well as zero or more images. How those elements are processed is left to service or target -specific implementations of the `Broadcaster` interfaces.
 
