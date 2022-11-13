@@ -159,6 +159,10 @@ NullUID# Int64UID#1667925887
 
 * https://github.com/aaronland/go-broadcaster-mastodon
 
+### slack://
+
+* https://github.com/aaronland/go-broadcaster-slack
+
 ### twitter://
 
 * https://github.com/aaronland/go-broadcaster-twitter
