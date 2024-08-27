@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	"log"
+	"log/slog"
 	"strings"
 	"testing"
 )
@@ -22,13 +22,8 @@ func TestLogBroadcaster(t *testing.T) {
 	var buf bytes.Buffer
 	wr := bufio.NewWriter(&buf)
 
-	logger := log.New(wr, "", 0)
-
-	err = br.SetLogger(ctx, logger)
-
-	if err != nil {
-		t.Fatalf("Failed to set logger, %v", err)
-	}
+	logger := slog.New(slog.NewTextHandler(wr, nil))
+	slog.SetDefault(logger)
 
 	msg := &Message{
 		Title: "Testing",
@@ -43,7 +38,7 @@ func TestLogBroadcaster(t *testing.T) {
 
 	wr.Flush()
 
-	if strings.TrimSpace(buf.String()) != "Testing Hello world" {
+	if strings.HasSuffix(buf.String(), `level=INFO msg="Testing Hello world"`) {
 		t.Fatalf("Unexpected output '%s'", buf.String())
 	}
 

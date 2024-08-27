@@ -2,8 +2,6 @@ package broadcaster
 
 import (
 	"context"
-	"io"
-	"log"
 	"testing"
 )
 
@@ -27,14 +25,6 @@ func TestMultiBroadcaster(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("Failed to create multi broadcaster, %v", err)
-	}
-
-	logger := log.New(io.Discard, "", 0)
-
-	err = mb.SetLogger(ctx, logger)
-
-	if err != nil {
-		t.Fatalf("Failed to set logger, %v", err)
 	}
 
 	msg := &Message{
@@ -62,14 +52,6 @@ func TestMultiBroadcasterFromURIs(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("Failed to create multi broadcaster, %v", err)
-	}
-
-	logger := log.New(io.Discard, "", 0)
-
-	err = mb.SetLogger(ctx, logger)
-
-	if err != nil {
-		t.Fatalf("Failed to set logger, %v", err)
 	}
 
 	msg := &Message{
