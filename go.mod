@@ -1,6 +1,6 @@
 module github.com/aaronland/go-broadcaster
 
-go 1.19
+go 1.23
 
 require (
 	github.com/aaronland/go-roster v1.0.0
@@ -11,5 +11,5 @@ require (
 
 require (
 	github.com/aaronland/go-string v1.0.0 // indirect
-	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/errwrap v1.0.0 // indirect
 )

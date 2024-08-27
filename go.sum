@@ -4,9 +4,8 @@ github.com/aaronland/go-string v1.0.0 h1:fPHmC1i9JhGzgi4qdCSXKc4xTCaLLe0uvlJMu9d
 github.com/aaronland/go-string v1.0.0/go.mod h1:URh3Au/fNbM0++WjBseurE3QTp875wiJ9ImrecD+7tI=
 github.com/aaronland/go-uid v0.4.0 h1:2qQ2yRQarrUCEU9ApvBpaC9osAcqTCCvD77rOkDp7m0=
 github.com/aaronland/go-uid v0.4.0/go.mod h1:HwQ09mooJ8j684z3W5lPKO6Odf557O6h3P3o1PquqXE=
+github.com/hashicorp/errwrap v1.0.0 h1:hLrqtEDnRye3+sgx6z4qVLNuviH3MR5aQ0ykNJa/UYA=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
-github.com/hashicorp/errwrap v1.1.0 h1:OxrOeh75EUXMY8TBjag2fzXGZ40LB6IKw45YeGUDY2I=
-github.com/hashicorp/errwrap v1.1.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
 github.com/hashicorp/go-multierror v1.1.1 h1:H5DkEtf6CXdFp0N0Em5UCwQpXMWke8IA0+lD48awMYo=
 github.com/hashicorp/go-multierror v1.1.1/go.mod h1:iw975J/qwKPdAO1clOe2L8331t/9/fmwbPZ6JB6eMoM=
 github.com/sfomuseum/go-flags v0.10.0 h1:1OC1ACxpWMsl3XQ9OeNVMQj7Zi2CzufP3Rym3mPI8HU=

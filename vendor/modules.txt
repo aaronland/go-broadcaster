@@ -7,7 +7,7 @@ github.com/aaronland/go-string/random
 # github.com/aaronland/go-uid v0.4.0
 ## explicit; go 1.18
 github.com/aaronland/go-uid
-# github.com/hashicorp/errwrap v1.1.0
+# github.com/hashicorp/errwrap v1.0.0
 ## explicit
 github.com/hashicorp/errwrap
 # github.com/hashicorp/go-multierror v1.1.1
