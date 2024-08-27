@@ -130,6 +130,8 @@ $> ./bin/broadcast -h
     	Zero or more paths to images to include with the message to broadcast.
   -title string
     	The title of the message to broadcast.
+  -verbose
+    	Enable verbose (debug) logging.	
 ```
 
 For example:
@@ -157,6 +159,8 @@ NullUID# Int64UID#1667925887
 ### twitter://
 
 * https://github.com/aaronland/go-broadcaster-twitter
+
+_This package is no longer maintained (and probably doesn't work anyway given all the changes to the Twitter API in recent years)._
 
 ## See also
 
