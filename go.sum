@@ -2,13 +2,13 @@ github.com/aaronland/go-roster v1.0.0 h1:FRDGrTqsYySKjWnAhbBGXyeGlI/o5/t9FZYCbUm
 github.com/aaronland/go-roster v1.0.0/go.mod h1:KIsYZgrJlAsyb9LsXSCvlqvbcCBVjCSqcQiZx42i9ro=
 github.com/aaronland/go-string v1.0.0 h1:fPHmC1i9JhGzgi4qdCSXKc4xTCaLLe0uvlJMu9dHhco=
 github.com/aaronland/go-string v1.0.0/go.mod h1:URh3Au/fNbM0++WjBseurE3QTp875wiJ9ImrecD+7tI=
-github.com/aaronland/go-uid v0.4.0 h1:2qQ2yRQarrUCEU9ApvBpaC9osAcqTCCvD77rOkDp7m0=
-github.com/aaronland/go-uid v0.4.0/go.mod h1:HwQ09mooJ8j684z3W5lPKO6Odf557O6h3P3o1PquqXE=
+github.com/aaronland/go-uid v0.5.0 h1:kt3jOwu1Hn+gtFbwe4XayyGo/Z+cIa0/678BXiYZcdU=
+github.com/aaronland/go-uid v0.5.0/go.mod h1:dR5wRSfWwNhL1rK/mgirkgJEeuThDT9yg/LBNFfX4ag=
 github.com/hashicorp/errwrap v1.0.0 h1:hLrqtEDnRye3+sgx6z4qVLNuviH3MR5aQ0ykNJa/UYA=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
 github.com/hashicorp/go-multierror v1.1.1 h1:H5DkEtf6CXdFp0N0Em5UCwQpXMWke8IA0+lD48awMYo=
 github.com/hashicorp/go-multierror v1.1.1/go.mod h1:iw975J/qwKPdAO1clOe2L8331t/9/fmwbPZ6JB6eMoM=
 github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 h1:zYyBkD/k9seD2A7fsi6Oo2LfFZAehjjQMERAvZLEDnQ=
 github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646/go.mod h1:jpp1/29i3P1S/RLdc7JQKbRpFeM1dOBd8T9ki5s+AY8=
-github.com/sfomuseum/go-flags v0.10.0 h1:1OC1ACxpWMsl3XQ9OeNVMQj7Zi2CzufP3Rym3mPI8HU=
-github.com/sfomuseum/go-flags v0.10.0/go.mod h1:VXOnnX1/yxQpX2yiwHaBV6aCmhtszQOL5bL1/nNo3co=
+github.com/sfomuseum/go-flags v0.12.1 h1:xvg3iEz510JPr9ItPxOOF2C12JnlplodT1V/1Ty7Pg8=
+github.com/sfomuseum/go-flags v0.12.1/go.mod h1:cUTByyudaM9d+iHwxsEpyYHemWVOGL/bqTRPIvydiC8=
